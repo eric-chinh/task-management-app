@@ -15,11 +15,11 @@ export function Layout() {
   const userName = localStorage.getItem('userName') ?? 'User';
 
   return (
-    <AntLayout style={{ height: '100vh' }}>
+    <AntLayout style={{ height: '100%' }}>
       <Header userName={userName} onLogout={handleLogout} />
-      <AntLayout>
+      <AntLayout style={{ overflow: 'hidden' }}>
         <Sidebar />
-        <Content style={{ padding: 24, background: '#f5f5f5', overflow: 'auto' }}>
+        <Content style={{ padding: 24, background: '#f5f5f5', overflowY: 'auto' }}>
           <Outlet />
         </Content>
       </AntLayout>
