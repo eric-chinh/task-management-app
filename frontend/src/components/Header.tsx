@@ -1,3 +1,6 @@
+import { Avatar, Button, Flex, Typography } from 'antd';
+import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
+
 interface HeaderProps {
   userName: string;
   onLogout: () => void;
@@ -5,14 +8,36 @@ interface HeaderProps {
 
 export function Header({ userName, onLogout }: HeaderProps) {
   return (
-    <header style={{ display: 'flex', justifyContent: 'space-between', padding: '0 24px', height: 56, alignItems: 'center', borderBottom: '1px solid #e2e8f0', background: '#fff' }}>
-      <h1 style={{ fontSize: 18, fontWeight: 700, color: '#1e293b' }}>TaskBoard</h1>
-      <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-        <span style={{ fontSize: 14, color: '#64748b' }}>{userName}</span>
-        <button onClick={onLogout} style={{ fontSize: 13, color: '#ef4444', background: 'none', border: 'none', cursor: 'pointer' }}>
+    <Flex
+      align="center"
+      justify="space-between"
+      style={{
+        height: 56,
+        padding: '0 24px',
+        background: '#fff',
+        borderBottom: '1px solid #f0f0f0',
+        position: 'sticky',
+        top: 0,
+        zIndex: 100,
+      }}
+    >
+      <Typography.Title level={4} style={{ margin: 0, color: '#1677ff' }}>
+        TaskBoard
+      </Typography.Title>
+
+      <Flex align="center" gap={12}>
+        <Avatar size="small" icon={<UserOutlined />} style={{ background: '#1677ff' }} />
+        <Typography.Text style={{ fontSize: 14 }}>{userName}</Typography.Text>
+        <Button
+          type="text"
+          danger
+          icon={<LogoutOutlined />}
+          onClick={onLogout}
+          size="small"
+        >
           Đăng xuất
-        </button>
-      </div>
-    </header>
+        </Button>
+      </Flex>
+    </Flex>
   );
 }

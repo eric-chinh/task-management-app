@@ -1,6 +1,9 @@
+import { Layout as AntLayout } from 'antd';
 import { Outlet } from 'react-router-dom';
 import { Header } from './Header';
 import { Sidebar } from './Sidebar';
+
+const { Content } = AntLayout;
 
 export function Layout() {
   const handleLogout = () => {
@@ -12,14 +15,14 @@ export function Layout() {
   const userName = localStorage.getItem('userName') ?? 'User';
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+    <AntLayout style={{ height: '100vh' }}>
       <Header userName={userName} onLogout={handleLogout} />
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+      <AntLayout>
         <Sidebar />
-        <main style={{ flex: 1, overflow: 'auto', padding: 24, background: '#f1f5f9' }}>
+        <Content style={{ padding: 24, background: '#f5f5f5', overflow: 'auto' }}>
           <Outlet />
-        </main>
-      </div>
-    </div>
+        </Content>
+      </AntLayout>
+    </AntLayout>
   );
 }

@@ -1,14 +1,24 @@
-import { NavLink } from 'react-router-dom';
+import { Menu } from 'antd';
+import { AppstoreOutlined } from '@ant-design/icons';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export function Sidebar() {
-  const linkStyle = { display: 'block', padding: '10px 16px', color: '#64748b', textDecoration: 'none', borderRadius: 6, fontSize: 14 };
-  const activeStyle = { ...linkStyle, background: '#eff6ff', color: '#2563eb', fontWeight: 600 };
+  const navigate = useNavigate();
+  const location = useLocation();
 
   return (
-    <aside style={{ width: 220, background: '#f8fafc', borderRight: '1px solid #e2e8f0', padding: '16px 8px' }}>
-      <NavLink to="/dashboard" style={({ isActive }) => isActive ? activeStyle : linkStyle}>
-        📋 Kanban Board
-      </NavLink>
-    </aside>
+    <Menu
+      mode="inline"
+      selectedKeys={[location.pathname]}
+      style={{ width: 220, height: '100%', borderRight: '1px solid #f0f0f0' }}
+      items={[
+        {
+          key: '/dashboard',
+          icon: <AppstoreOutlined />,
+          label: 'Kanban Board',
+          onClick: () => navigate('/dashboard'),
+        },
+      ]}
+    />
   );
 }
