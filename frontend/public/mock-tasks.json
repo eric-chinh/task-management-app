@@ -1,0 +1,78 @@
+[
+  {
+    "id": "1",
+    "title": "Setup dự án React + Vite",
+    "description": "Khởi tạo monorepo, cài dependencies",
+    "status": "DONE",
+    "priority": "HIGH",
+    "order": 0,
+    "ownerId": "u1",
+    "owner": { "id": "u1", "name": "Chính", "email": "chinh@example.com" },
+    "createdAt": "2026-05-08T00:00:00Z",
+    "updatedAt": "2026-05-08T00:00:00Z"
+  },
+  {
+    "id": "2",
+    "title": "Thiết kế Kanban UI",
+    "description": "Xây dựng board với dnd-kit",
+    "status": "IN_PROGRESS",
+    "priority": "HIGH",
+    "order": 0,
+    "ownerId": "u1",
+    "owner": { "id": "u1", "name": "Chính", "email": "chinh@example.com" },
+    "assigneeId": "u2",
+    "assignee": { "id": "u2", "name": "An", "email": "an@example.com" },
+    "createdAt": "2026-05-08T00:00:00Z",
+    "updatedAt": "2026-05-08T00:00:00Z"
+  },
+  {
+    "id": "3",
+    "title": "Viết REST API backend",
+    "description": "Express + Prisma + JWT auth",
+    "status": "TODO",
+    "priority": "MEDIUM",
+    "order": 0,
+    "ownerId": "u1",
+    "owner": { "id": "u1", "name": "Chính", "email": "chinh@example.com" },
+    "createdAt": "2026-05-08T00:00:00Z",
+    "updatedAt": "2026-05-08T00:00:00Z"
+  },
+  {
+    "id": "4",
+    "title": "Setup Redux Toolkit",
+    "description": "taskSlice, authSlice, RTK Query",
+    "status": "TODO",
+    "priority": "HIGH",
+    "order": 1,
+    "ownerId": "u2",
+    "owner": { "id": "u2", "name": "An", "email": "an@example.com" },
+    "assigneeId": "u1",
+    "assignee": { "id": "u1", "name": "Chính", "email": "chinh@example.com" },
+    "createdAt": "2026-05-08T00:00:00Z",
+    "updatedAt": "2026-05-08T00:00:00Z"
+  },
+  {
+    "id": "5",
+    "title": "Deploy lên AWS EC2 + S3",
+    "description": "Nginx, PM2, S3 static hosting",
+    "status": "BACKLOG",
+    "priority": "LOW",
+    "order": 0,
+    "ownerId": "u1",
+    "owner": { "id": "u1", "name": "Chính", "email": "chinh@example.com" },
+    "createdAt": "2026-05-08T00:00:00Z",
+    "updatedAt": "2026-05-08T00:00:00Z"
+  },
+  {
+    "id": "6",
+    "title": "Socket.io real-time sync",
+    "description": "Broadcast task events tới tất cả clients",
+    "status": "BACKLOG",
+    "priority": "MEDIUM",
+    "order": 1,
+    "ownerId": "u2",
+    "owner": { "id": "u2", "name": "An", "email": "an@example.com" },
+    "createdAt": "2026-05-08T00:00:00Z",
+    "updatedAt": "2026-05-08T00:00:00Z"
+  }
+]
