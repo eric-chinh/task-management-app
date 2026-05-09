@@ -1,0 +1,25 @@
+import { Outlet } from 'react-router-dom';
+import { Header } from './Header';
+import { Sidebar } from './Sidebar';
+
+export function Layout() {
+  const handleLogout = () => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    window.location.href = '/login';
+  };
+
+  const userName = localStorage.getItem('userName') ?? 'User';
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+      <Header userName={userName} onLogout={handleLogout} />
+      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+        <Sidebar />
+        <main style={{ flex: 1, overflow: 'auto', padding: 24, background: '#f1f5f9' }}>
+          <Outlet />
+        </main>
+      </div>
+    </div>
+  );
+}
