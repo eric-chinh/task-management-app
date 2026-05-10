@@ -1,5 +1,6 @@
 import { Card, Typography, Flex } from 'antd';
 import { UserAddOutlined } from '@ant-design/icons';
+import { RegisterForm } from '../features/auth/components/RegisterForm';
 
 export function RegisterPage() {
   return (
@@ -16,11 +17,7 @@ export function RegisterPage() {
           </Typography.Title>
           <Typography.Text type="secondary">Tạo tài khoản TaskBoard</Typography.Text>
         </Flex>
-
-        {/* RegisterForm sẽ được thêm ở Task 5 */}
-        <Typography.Text type="secondary" style={{ display: 'block', textAlign: 'center' }}>
-          Form đăng ký — Task 5
-        </Typography.Text>
+        <RegisterForm />
       </Card>
     </Flex>
   );

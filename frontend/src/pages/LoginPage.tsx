@@ -1,5 +1,6 @@
 import { Card, Typography, Flex } from 'antd';
 import { LockOutlined } from '@ant-design/icons';
+import { LoginForm } from '../features/auth/components/LoginForm';
 
 export function LoginPage() {
   return (
@@ -16,11 +17,7 @@ export function LoginPage() {
           </Typography.Title>
           <Typography.Text type="secondary">TaskBoard</Typography.Text>
         </Flex>
-
-        {/* LoginForm sẽ được thêm ở Task 5 */}
-        <Typography.Text type="secondary" style={{ display: 'block', textAlign: 'center' }}>
-          Form đăng nhập — Task 5
-        </Typography.Text>
+        <LoginForm />
       </Card>
     </Flex>
   );
