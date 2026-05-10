@@ -1,21 +1,24 @@
 import { useState, useEffect } from 'react';
-import { Row, Col, Select, Spin, Empty, Typography, Alert } from 'antd';
+import { Row, Col, Spin, Empty, Alert, Segmented, Badge } from 'antd';
 import type { Task, TaskStatus } from '../../../types';
 import { TaskCard } from './TaskCard';
 
-const STATUS_OPTIONS = [
-  { value: 'ALL',         label: 'Tất cả' },
-  { value: 'BACKLOG',     label: 'Backlog' },
-  { value: 'TODO',        label: 'Todo' },
-  { value: 'IN_PROGRESS', label: 'In Progress' },
-  { value: 'DONE',        label: 'Done' },
+const ALL = 'ALL' as const;
+type Filter = TaskStatus | typeof ALL;
+
+const SEGMENTS = [
+  { label: 'Tất cả', value: ALL },
+  { label: 'Backlog',     value: 'BACKLOG'     as TaskStatus },
+  { label: 'Todo',        value: 'TODO'        as TaskStatus },
+  { label: 'In Progress', value: 'IN_PROGRESS' as TaskStatus },
+  { label: 'Done',        value: 'DONE'        as TaskStatus },
 ];
 
 export function TaskList() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [activeFilter, setActiveFilter] = useState<TaskStatus | 'ALL'>('ALL');
+  const [filter, setFilter] = useState<Filter>(ALL);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -25,54 +28,40 @@ export function TaskList() {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json();
       })
-      .then((data: Task[]) => {
-        setTasks(data);
-        setLoading(false);
-      })
+      .then((data: Task[]) => { setTasks(data); setLoading(false); })
       .catch(err => {
-        if (err.name !== 'AbortError') {
-          setError(err.message);
-          setLoading(false);
-        }
+        if (err.name !== 'AbortError') { setError(err.message); setLoading(false); }
       });
 
-    return () => controller.abort(); // cleanup tránh double-call trong Strict Mode
+    return () => controller.abort();
   }, []);
 
-  const filtered = activeFilter === 'ALL'
-    ? tasks
-    : tasks.filter(t => t.status === activeFilter);
+  const filtered = filter === ALL ? tasks : tasks.filter(t => t.status === filter);
 
-  if (loading) {
-    return (
-      <Spin tip="Đang tải tasks..." style={{ display: 'block', marginTop: 80 }} />
-    );
-  }
+  const countOf = (s: TaskStatus) => tasks.filter(t => t.status === s).length;
 
-  if (error) {
-    return <Alert type="error" message={`Lỗi: ${error}`} showIcon />;
-  }
+  if (loading) return <Spin tip="Đang tải tasks..." style={{ display: 'block', marginTop: 60 }} />;
+  if (error)   return <Alert type="error" message={`Lỗi: ${error}`} showIcon />;
+
+  // Segmented options với badge count
+  const segmentOptions = SEGMENTS.map(seg => ({
+    label: seg.value === ALL
+      ? <span>Tất cả <Badge count={tasks.length} color="blue" /></span>
+      : <span>{seg.label} <Badge count={countOf(seg.value as TaskStatus)} color="default" /></span>,
+    value: seg.value,
+  }));
 
   return (
     <div>
-      <Row justify="space-between" align="middle" style={{ marginBottom: 16 }}>
-        <Col>
-          <Typography.Title level={4} style={{ margin: 0 }}>
-            Tasks ({filtered.length})
-          </Typography.Title>
-        </Col>
-        <Col>
-          <Select
-            value={activeFilter}
-            onChange={setActiveFilter}
-            options={STATUS_OPTIONS}
-            style={{ width: 150 }}
-          />
-        </Col>
-      </Row>
+      <Segmented
+        options={segmentOptions}
+        value={filter}
+        onChange={val => setFilter(val as Filter)}
+        style={{ marginBottom: 20 }}
+      />
 
       {filtered.length === 0 ? (
-        <Empty description="Không có task nào" />
+        <Empty description="Không có task nào" style={{ marginTop: 40 }} />
       ) : (
         <Row gutter={[16, 16]}>
           {filtered.map(task => (
